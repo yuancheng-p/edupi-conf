@@ -3,7 +3,7 @@ This is a simple introduction for developer to install and configure
 a rasbpian on a Raspberry pi 2.
 
 
-## Matirials to prepare
+## Materials to prepare
 
 You should have at lease the materials in the following list:
 
@@ -27,7 +27,7 @@ Step 4: Write the official raspbian image on the SD card with Win32DiskImager.
 Since the official raspbian image is not large (about 3GB), this takes only
 about 5 minutes for a 10MB/s write speed.
 
-Step 5: Detech your micro SD card from PC and insert it into the Raspberry.
+Step 5: Detach your micro SD card from PC and insert it into the Raspberry.
 Connect the Raspberry to your LAN before plugging the power supply.
 The Raspberry will then start automatically with Linux installed inside. :)
 
