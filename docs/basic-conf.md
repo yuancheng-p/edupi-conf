@@ -1,16 +1,12 @@
 # About this doc
 
-This documentation shows the basic programs to install the a clean Rasbian
-and the configuration to make the Raspberry as a Web application server.
+This documentation shows the basic programs to install on the a clean Rasbian
+and the basic configuration to make a Raspberry as a Web application server.
 
 
 ## Objectifs
 
-* Raspberry as hotspot.
-* Basic web service (only an index page).
-* Install Ka-lite (without downloading any video data).
-* Install Kiwix (without downloading Gutenberg, Wikipedia, Wiktionary).
-
+* Raspberry as hotspot and web server.
 
 ## Materials and environment needed
 
@@ -21,16 +17,20 @@ and the configuration to make the Raspberry as a Web application server.
 
 ## Use all the SD card space
 
-You may notice that the system does not use all the SD card space.
+We assume that you are connected to your Rasbperry with another
+PC via SSH.
 
-To do so:
+You may notice that the system does not use all the SD card space
+by typing `df -h` on the CLI.
+
+To expends the file system, simply:
 
     $> sudo raspi-config
 
-This program presents an interactive interface,
-just choose to use all the SD card space and reboot the system.
+This program presents an interactive interface.
+Just choose to use all the SD card space and reboot the system.
 
-Then use `df -h` to see the disk changing.
+Then use `df -h` to verify the changes.
 
 
 ## Hotspot config
@@ -75,7 +75,7 @@ That's all we need for the configuration.
 
     ```
     interface=wlan0
-    ssid=FondationOrangeEdu_
+    ssid=SSID_PREFIX_
     hw_mode=g
     channel=6
     auth_algs=1
@@ -95,7 +95,7 @@ That's all we need for the configuration.
     echo "---hotspot config---"
     MY_HOSTID=$(cat /proc/cpuinfo | grep Serial | cut -d: -f2 | sed 's/^[ \t]*//;s/[ \t]*$//')
     MY_HOSTID=$(echo -e $MY_HOSTID | tail -c8)
-    sudo cat /etc/hostapd/hostapd.conf.orig | sed "s/FondationOrangeEdu_/FondationOrangeEdu_`echo $MY_HOSTID`/" > /etc/hostapd/hostapd.conf
+    sudo cat /etc/hostapd/hostapd.conf.orig | sed "s/SSID_PREFIX_/SSID_PREFIX_`echo $MY_HOSTID`/" > /etc/hostapd/hostapd.conf
     sudo /usr/sbin/hostapd -B /etc/hostapd/hostapd.conf
     ```
 
@@ -119,33 +119,4 @@ activated by default, though `dnsmasq` runs by default :(
 by uncommenting `net.ipv4.ip_forward=1`.
 
 
-## Nginx
-
-1. Install nginx
-
-    ```
-    $> sudo apt-get install nginx
-    ```
-
-    Run it!
-
-    ```
-    $> sudo nginx
-    ```
-
-    Test it by typing the IP adress of the Raspberry server on a PC's navigator,
-    You should then see a welcom message:
-
-    ```
-    Welcome to nginx!
-    ```
-
-2. static page config
-
-    Create application directories:
-
-    ```
-    $> mkdir /home/pi/webapps
-    $> mkdir /home/pi/webapps/www
-    $> echo "Hello Raspberry" > /home/pi/webapps/www/index.html
-    ```
+Now your Raspberry is well configured as a hotspot and ready to serve web applications.
