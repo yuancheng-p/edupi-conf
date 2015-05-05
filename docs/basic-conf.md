@@ -97,6 +97,8 @@ That's all we need for the configuration.
     MY_HOSTID=$(echo -e $MY_HOSTID | tail -c8)
     sudo cat /etc/hostapd/hostapd.conf.orig | sed "s/SSID_PREFIX_/SSID_PREFIX_`echo $MY_HOSTID`/" > /etc/hostapd/hostapd.conf
     sudo /usr/sbin/hostapd -B /etc/hostapd/hostapd.conf
+    # force to use the static address
+    sudo ifconfig wlan0 10.0.0.1/24
     ```
 
 
